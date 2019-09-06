@@ -3,9 +3,9 @@ import java.io.*;
 import work.*;
 class Database
 {
+   
 
-
-
+   
     static String makequery (String query)
     {
          query=query.toLowerCase();
@@ -16,12 +16,12 @@ class Database
             {
                 query=query.substring(0,i)+" "+query.charAt(i)+" "+query.substring(i+1,query.length());
                 i=i+1;
-
+                
             }
         }
          query= query.replaceAll("( )+", " ");
         return query;
-
+        
     }
 
       public static void main(String args[])
@@ -33,20 +33,21 @@ class Database
         funcs.add("insert");
         funcs.add("update");
         funcs.add("print");
+        funcs.add("delete");
         funcs.add("load");
         funcs.add("store");
         funcs.add("exit");
         while(true)
         {
         String query=sc.nextLine();
-
+       
         query=makequery(query);
-
+      
         String words[]=query.split(" ");
-
+        
         if(funcs.contains(words[0]))
         {
-
+          
             switch (words[0]) {
                 case "create":
                     try
@@ -59,13 +60,13 @@ class Database
                         }
                         else{
                             System.out.println("INVALID");
-
+                            
                         }
-
+                       
                     }
                     catch(Exception e)
                     {
-
+                        
                     }
                     break;
 
@@ -81,36 +82,36 @@ class Database
                             else
                             {
                                 System.out.println("INVALID");
-
+                                
                             }
                         }
                         catch(Exception e)
                          {
-
+                        
                         }
                         break;
 
 
-                        // case "print":
-                        // try
-                        // {
-                        //     Print p = new Print();
-                        //     boolean res = p.checkprint(words);
-                        //     if(res)
-                        //     {
-                        //         p.printvalues(words);
-                        //     }
-                        //     else
-                        //     {
-                        //         System.out.println("INVALID");
-                        //
-                        //     }
-                        // }
-                        // catch(Exception e)
-                        // {
-                        //
-                        // }
-                        // break;
+                        case "print":
+                        try
+                        {
+                            Print p = new Print();
+                            boolean res = p.checkprint(words);
+                            if(res)
+                            {
+                                p.printvalues(words,1);
+                            }
+                            else
+                            {
+                                System.out.println("INVALID");
+                             
+                            }
+                        }
+                        catch(Exception e)
+                        {
+                        
+                        }
+                        break;
                 case "load":
                         try
                         {
@@ -123,35 +124,58 @@ class Database
                             else
                             {
                                 System.out.println("INVALID");
-
+                            
                             }
                         }
                         catch(Exception e)
                         {
-
+                        
                         }
                         break;
                 case "select":
                 try
                 {
-                    // Select s = new Select();
-                    // boolean res = s.checkselect(words);
-                    // if(res)
-                    // {
-                    //     s.printselect(words);
-                    // }
-                    // else
-                    // {
-                    //     System.out.println("INVALID");
-                    //
-                    // }
+                    Select s = new Select();
+                    boolean res = s.checkselect(words);
+                    if(res)
+                    {
+                         s.printselect(words);
+                        
+                    }
+                    else
+                    {
+                        System.out.println("INVALID");
+                    
+                    }
                 }
                 catch(Exception e)
                 {
-
+                        
+                        System.out.println(e);
                 }
                 break;
 
+                case "delete":
+                try
+                {
+                    Delete d = new Delete();
+                    boolean res = d.checkdelete(words);
+                    if(res)
+                    {
+                        d.deletetable(words);
+                    }
+                    else
+                    {
+                        System.out.println("INVALID");
+                    
+                    }
+                }
+                catch(Exception e)
+                {
+                
+                }
+                break;
+                    
 
                 case "quit":
                 case "exit":
@@ -160,7 +184,7 @@ class Database
                     break;
             }
         }
-
+        
         else
         {
             System.out.println("PL/SQL 0101");
